@@ -37,7 +37,7 @@ const { storage } = require("./cloudConfig");
 
 const upload = multer({ storage });
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.ATLASDB_URL;
 
 main()
 .then(() => {
@@ -64,7 +64,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 // SESSION CONFIG
 const sessionOptions = {
-    secret: "mysupersecretcode",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
 };
@@ -375,6 +375,8 @@ app.use((err, req, res, next) => {
 });
 
 // SERVER
-app.listen(8080, () => {
-    console.log("server is listening to port 8080");
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+    console.log(`server is listening to port ${port}`);
 });
