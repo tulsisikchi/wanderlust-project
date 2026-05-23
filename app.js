@@ -50,15 +50,6 @@ main()
 async function main() {
     await mongoose.connect(MONGO_URL);
 }
-const initData = require("./init/data.js");
-
-const seedDB = async () => {
-    await Listing.deleteMany({});
-    await Listing.insertMany(initData.data);
-    console.log("Database Seeded");
-};
-
-seedDB();
 
 // VIEW ENGINE
 app.set("view engine", "ejs");
